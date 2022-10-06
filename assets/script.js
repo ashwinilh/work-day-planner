@@ -3,7 +3,7 @@ var day = (moment().format("MMMM D, YYYY"));
     $("#currentDay").text(day);
 
     //To update task
-    $("#task").on("click", "p", function(){
+    $(".task").on("click", "p", function(){
         console.log("<p> was clicked");
         var text =$(this)
           .text()
@@ -17,7 +17,7 @@ var day = (moment().format("MMMM D, YYYY"));
       });
     
       // Tasks pending
-    $("#task").on("blur", "textarea", function(){
+    $(".task").on("blur", "textarea", function(){
       //get the textareas; current value/text
         var text = $(this)
           .val()
@@ -31,3 +31,8 @@ var day = (moment().format("MMMM D, YYYY"));
         // To replace textarea 
         $(this).replaceWith(taskP);
       });    
+
+      $(".save-btn").on("click", function(){
+        console.log("<save button> was clicked");
+        console.log($(".saveBtn").index(this));
+    });
