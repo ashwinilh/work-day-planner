@@ -1,27 +1,45 @@
+tasks = [];
 var loadTasks = function () {
     tasks = JSON.parse(localStorage.getItem("tasks"))
     if (!tasks) {
         tasks = {};
-    }
-    for (i = 0; i < tasks.length; i++) {
-        var index = i
-        console.log(index);
-        console.log(tasks[i])
-
-        var firstHour = index + 8
-        var taskP = $("<p>").addClass("text-item-" + firstHour).text(tasks[i])
-        console.log(firstHour)
-        console.log(taskP);
-        $(".task-" + firstHour).append(taskP);
-    }
+};
+printTasks(tasks)
 }
+var printTasks = function(){
+    $.each(tasks, function(list, arr){
+
+        var taskP = $("<p>").addClass("description task-item-" + list).text(arr)
+
+        console.log(list)
+        console.log(taskP);
+
+        $("#task-item-" + list).replaceWith(taskP);
+    })
+ }
+
 //today's date loaded at the top of the page
 var day = (moment().format("MMMM D, YYYY"));
 $("#currentDay").text(day);
+//color code hours bins
+var hourCount = function () {
+    var currentHour = moment().hour()
+
+    for (var i = 7; i <= 19; i++) {
+        var taskArea = $("#task-" + i)
+        if (currentHour > i) {
+            $(taskArea).addClass("past");
+        } else if (currentHour === i) {
+            $(taskArea).addClass("present");
+        } else {
+            $(taskArea).addClass("future")
+        }
+    }
+}
 
 //To update task
-$(".task").on("click", "p", function () {
-
+$(".taskBin").on("click", "p", function () {
+    // console.log("<p> was clicked");
     var text = $(this)
         .text()
         .trim();
@@ -34,7 +52,7 @@ $(".task").on("click", "p", function () {
 });
 
 // Tasks pending
-$(".task").on("blur", "textarea", function () {
+$(".taskBin").on("blur", "textarea", function () {
     //get the textareas; current value/text
     var text = $(this)
         .val()
@@ -42,7 +60,7 @@ $(".task").on("blur", "textarea", function () {
     console.log(text)
 
     var taskP = $("<p>")
-        .addClass("m-1")
+        .addClass("taskItem")
         .text(text);
 
     // To replace textarea 
@@ -53,11 +71,16 @@ $(".save-btn").on("click", function () {
 
     var index = $(".saveBtn").index(this);
 
-    tasks[index] = $(this).parent().find("p").text();
+    tasks[index] = $(this).parent().find(".taskItem").text();
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
 
 
 });
+setInterval(function () {
+    hourAudit();
+}, 1000 * 60 * 60);
+
 
 loadTasks();
+hourCount();
