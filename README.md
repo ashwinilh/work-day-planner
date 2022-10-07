@@ -1,5 +1,5 @@
 # work-day-planner
-![screen-shot-challenge4](./assets/images/Screenshotplanner-image-1.jpg)
+![screen-shot-C-5](./assets/images/Screenshotplanner-image-1.jpg)
 1. Cloned starter code, created folder structure and pushed into the repo URL-  https://github.com/ashwinilh/work-day-planner
 2. Hosted the repo "work-day-planner" on github live website with the URL-  https://ashwinilh.github.io/work-day-planner/
 3. This repo is for challenge 5 of UT boot camp to create  a simple calendar application that allows a user to save events for each hour of the day.
