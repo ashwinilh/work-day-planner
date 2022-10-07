@@ -3,6 +3,17 @@ var loadTasks = function () {
     if (!tasks) {
         tasks = {};
     }
+    for (i = 0; i < tasks.length; i++) {
+        var index = i
+        console.log(index);
+        console.log(tasks[i])
+
+        var firstHour = index + 8
+        var taskP = $("<p>").addClass("text-item-" + firstHour).text(tasks[i])
+        console.log(firstHour)
+        console.log(taskP);
+        $(".task-" + firstHour).append(taskP);
+    }
 }
 //today's date loaded at the top of the page
 var day = (moment().format("MMMM D, YYYY"));
@@ -10,7 +21,7 @@ $("#currentDay").text(day);
 
 //To update task
 $(".task").on("click", "p", function () {
-    console.log("<p> was clicked");
+
     var text = $(this)
         .text()
         .trim();
@@ -39,12 +50,14 @@ $(".task").on("blur", "textarea", function () {
 });
 
 $(".save-btn").on("click", function () {
-    console.log("<save button> was clicked");
+
     var index = $(".saveBtn").index(this);
-    console.log(index)
+
     tasks[index] = $(this).parent().find("p").text();
-    console.log(tasks)
+
     localStorage.setItem("tasks", JSON.stringify(tasks));
 
 
 });
+
+loadTasks();
