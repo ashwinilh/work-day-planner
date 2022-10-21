@@ -15,5 +15,20 @@ var printTasks = function () {
     })
 }
 
+//To update task
+$(".taskArea").on("click", "p", function () {
+    var text = $(this).text().trim();
+    var textInput = $("<textarea>").addClass("form-control").val(text);
+    $(this).replaceWith(textInput);
+    textInput.trigger("focus");
+});
+
+// Tasks pending
+$(".taskArea").on("blur", "textarea", function () {
+    var text = $(this).val().trim();
+    var taskP = $("<p>").addClass("taskItem").text(text);
+    $(this).replaceWith(taskP);
+});
+
 
 loadTasks();
