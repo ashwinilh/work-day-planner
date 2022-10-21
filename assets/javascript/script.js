@@ -30,5 +30,11 @@ $(".taskArea").on("blur", "textarea", function () {
     $(this).replaceWith(taskP);
 });
 
+$(".save-btn").on("click", function () {
+    var index = $(".saveBtn").index(this);
+    tasks[index] = $(this).parent().find(".taskItem").text();
+    localStorage.setItem("chores", JSON.stringify(tasks));
+});
+
 
 loadTasks();
