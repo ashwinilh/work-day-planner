@@ -15,6 +15,10 @@ var printTasks = function () {
     })
 }
 
+setInterval(function () {
+    hourAudit();
+}, 1000 * 60 * 60);
+
 //To update task
 $(".taskArea").on("click", "p", function () {
     var text = $(this).text().trim();
@@ -36,5 +40,23 @@ $(".save-btn").on("click", function () {
     localStorage.setItem("chores", JSON.stringify(tasks));
 });
 
+//today's date 
+var day = (moment().format("MMMM D, YYYY"));
+$("#currentDay").text(day);
+var hourCount = function () {
+    var currentHour = moment().hour();
+    for (var i = 7; i <= 19; i++) {
+        var taskArea = $("#task-" + i)
+        if (currentHour > i) {
+            $(taskArea).addClass("past");
+        } else if (currentHour === i) {
+            $(taskArea).addClass("present");
+        } else {
+            $(taskArea).addClass("future")
+        }
+    }
+}
+
 
 loadTasks();
+hourCount();
